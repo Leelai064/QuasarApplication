@@ -1,0 +1,28 @@
+/* Navbar Section */
+.navBar{
+    margin-right:40%;
+    height:75px;
+}
+/* Color of the tabs are all matching the co-exisiting layout */
+.shop,
+.setup,
+.support{
+    color:yellow;
+}
+.learn,
+.faq,
+.contact{
+    color:#389bff;
+}
+/* This section it the call to action main banner section! */
+.callToAction{
+    padding: 125px;
+}
+.shopbtn,
+.videobtn{
+    margin-right: 25px;
+    margin-bottom: 100px;
+    border-radius: 15px;
+}
+
+/* Video Player Section */
