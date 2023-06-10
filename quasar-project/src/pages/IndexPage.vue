@@ -90,7 +90,6 @@
 </style>
 
 <script>
-import { defineComponent, ref } from 'vue'
 import { defineComponent, ref, onBeforeMount } from 'vue'
 
 export default defineComponent({
