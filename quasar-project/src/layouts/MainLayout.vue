@@ -1,30 +1,36 @@
 <template>
-  <q-layout  view="lHh Lpr lFf">
-    <q-header  elevated>
-      <q-toolbar 
-      class="bg-black text-white shadow-2 justify-center ">
-      <q-btn class="pishockLogo" height="75px">
-    <img
-    src= "../assets/pishockLogo.png"
-    style ="height: 75px; max-width: 500px;"/>
-  </q-btn>
+  <q-layout>
+    <q-header elevated>
+      <q-toolbar class="bg-black text-white shadow-2 justify-center ">
+        <q-btn class="pishockLogo" height="75px">
+          <img src="../assets/pishockLogo.png" style="height: 75px; max-width: 500px;" />
+        </q-btn>
         <!-- <q-btn flat label="Pi-Shock" img src="../assets/pishockLogo.png" /> -->
         <q-space />
-<!-- give these q-tabs an href? or is this done in Javascript -->
-        <q-tabs v-model="tab"  shrink  class="navBar">
-          <q-tab name="Shop" label="Shop" class="shop"/>
-          <q-tab name="Learn" label="Learn" class="learn"/>
+        <!-- give these q-tabs an href? or is this done in Javascript -->
+        <!-- <q-tabs v-model="tab" shrink class="navBar">
+          <q-tab name="Shop" label="Shop" class="shop" />
+          <q-tab name="Learn" label="Learn" class="learn" />
           <q-tab name="Setup" label="Setup" @click="showDialog" class="setup" />
-          <q-tab name="Setup" label="F.A.Q" class="faq"/>
+          <q-tab name="Setup" label="F.A.Q" class="faq"  />
           <q-tab name="Setup" label="Support" class="support" />
-          <q-tab name="Setup" label="Contact" class="contact"/>
-        </q-tabs>
+          <q-tab name="Setup" label="Contact" class="contact" />
+          <a class="btn-primary faq" @click="scrollToAnchorPoint('faq')">scroll test</a>
+        </q-tabs> -->
+       
       </q-toolbar>
     </q-header>
 
     <q-page-container>
       <router-view />
     </q-page-container>
+
+    <!-- Footer Section -->
+    <q-footer bordered="5px" color="yellow" elevated>
+      <q-toolbar>
+        <q-toolbar-title>Footer</q-toolbar-title>
+      </q-toolbar>
+    </q-footer>
   </q-layout>
 </template>
 
@@ -84,7 +90,12 @@ import useQuasar from 'quasar/src/composables/use-quasar.js';
 
 export default defineComponent({
   name: 'MainLayout',
-  
+  methods: {
+    scrollToAnchorPoint(x) {
+      const el = this.$refs[x]
+      el.scrollIntoView({ behavior: 'smooth' })
+    }
+  },
   setup() {
     // const $q = useQuasar()
     return {
