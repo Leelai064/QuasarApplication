@@ -30,10 +30,12 @@
      <!-- the embed track needs to fit the entire container. Need to give each video an image for the thumbnails. Maybe converge this into a different format that has images and can fullscreen into video -->
         <div>
           <q-carousel v-model="slide" transition-prev="scale" transition-next="scale" swipeable animated
-            control-color="white" arrows  thumbnails height="1250px" class="bg-black text-white shadow-1">
+              control-color="white" arrows thumbnails height="1250px" class="bg-black text-white shadow-1">
             <q-carousel-slide name="style" class="column no-wrap ">
-              <embed class="" src="https://pishockcdn.nyc3.cdn.digitaloceanspaces.com/videos/Pishockvid_Optimized.mp4"
-                height="100%" width="100%" />
+              <embed class="" :src="videoUrls.length > 0 ? videoUrls[0].url : ''"  height="100%" width="100%" />
+            </q-carousel-slide>
+            <q-carousel-slide v-for="(video, index) in videoUrls.slice(1)" :key="index" :name="video.name" class="column no-wrap ">
+              <embed class="" :src="video.url" height="100%" width="100%" />
             </q-carousel-slide>
             <q-carousel-slide name="tv" class="column no-wrap flex-center">
               <q-icon name="live_tv" size="56px" />
@@ -56,7 +58,13 @@
           </q-carousel>
         </div>
       <!-- FAQ section -->
-      <div class="" href="F.A.Q">
+      <div v-for="(QA, index) in QNAs" :key="index" href="F.A.Q" class="faq-item" >
+        <h2 class="faq-question">{{QA.question}}</h2>
+        <div v-for="(paragraph, pIndex) in QA.paragraphs" :key="pIndex" class="faq-answer">
+            <p>{{paragraph}}</p>
+        </div>
+      </div>
+      <!--<div class="" href="F.A.Q">
         <h2> Frequest Asked Questions</h2>
         <p>A custom internet connected hub which acts as a remote for one or many of a specific shocker. (One shocker is
           included with the PiShock Starter Kit.)</p>
@@ -67,7 +75,7 @@
         <h2> How easy is it to save controls</h2>
         <h2> What is the Pishock</h2>
 
-      </div>
+      </div> -->
 
       <div class="q-pa-md q-gutter-sm">
         <q-tree :nodes="simple" node-key="label" no-connectors v-model:expanded="expanded" />
@@ -83,10 +91,29 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, onBeforeMount } from 'vue'
 
 export default defineComponent({
   name: "IndexPage",
   setup() {
+    const videoUrls = ref([]);
+    const QNAs = ref([]);
+    const loadVideoUrls = async () => {
+      try {
+        const response = await fetch('https://gist.githubusercontent.com/Fedack/05242e1f4bc97afe1200df1167b16792/raw');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        videoUrls.value = data["videoLinks"];
+        QNAs.value = data["qa"];
+      } catch (error) {
+        console.error('There was a problem loading the video URLs:', error);
+      }
+    };
+    
+    onBeforeMount(loadVideoUrls);
+
     return {
       // Accordian FAQ
       expanded: ref(["Frquently Asked Questions"]),
@@ -102,8 +129,11 @@ export default defineComponent({
         }
       ],
       slide: ref("style"),
-      lorem: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo."
+      lorem: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo.",
+      videoUrls,
+      QNAs
     };
   },
 })
 </script>
+
