@@ -208,89 +208,89 @@ export default defineComponent({
     return {
       // Accordian FAQ
       // expanded: ref(["Frquently Asked Questions"]),
-      faq: [
-        {
-          label: "FAQ",
-          fontsize: "32px",
-          children: [
-            {
-              label: 'A custom internet connected hub which acts as a remote for one or many of a specific shocker. (One shocker is included with the PiShock Starter Kit.)'
+      // faq: [
+      //   {
+      //     label: "FAQ",
+      //     fontsize: "32px",
+      //     children: [
+      //       {
+      //         label: 'A custom internet connected hub which acts as a remote for one or many of a specific shocker. (One shocker is included with the PiShock Starter Kit.)'
 
-            },
+      //       },
 
-          ]
-        },
+      //     ]
+      //   },
 
-      ],
-      why: [
-        {
-          label: "Why would I want it?",
-          fontsize: "32px",
-          children: [
-            {
-              label: "It is a great toy to use in BDSM relationships. You can use it to punish subs, allowing doms instant reactions that draws satisfying squeals. It can be brought outside and on the go, allowing public play. It is great in games like VRChat where you can see reactions. Beyond BDSM, you can integrate it with games to make them more intense. You can even use it to train habits out of you.",
+      // ],
+      // why: [
+      //   {
+      //     label: "Why would I want it?",
+      //     fontsize: "32px",
+      //     children: [
+      //       {
+      //         label: "It is a great toy to use in BDSM relationships. You can use it to punish subs, allowing doms instant reactions that draws satisfying squeals. It can be brought outside and on the go, allowing public play. It is great in games like VRChat where you can see reactions. Beyond BDSM, you can integrate it with games to make them more intense. You can even use it to train habits out of you.",
 
-            },
+      //       },
 
-          ]
-        },
-      ],
-      HowDoesItFeel: [
-        {
-          label: "How does it feel?",
-          fontsize: "32px",
-          children: [
-            {
-              label: 'The sensation varies from person to person. Most testomonys state they feel a sharp tingling/tickle/biting senation in the area the device is attatched to.'
+      //     ]
+      //   },
+      // ],
+      // HowDoesItFeel: [
+      //   {
+      //     label: "How does it feel?",
+      //     fontsize: "32px",
+      //     children: [
+      //       {
+      //         label: 'The sensation varies from person to person. Most testomonys state they feel a sharp tingling/tickle/biting senation in the area the device is attatched to.'
 
-            },
+      //       },
 
-          ]
-        },
+      //     ]
+      //   },
 
-      ],
-      IsItDangerous: [
-        {
-          label: "Is it Dangerous?",
-          fontsize: "32px",
-          children: [
-            {
-              label: 'Not if used responsiblity. The recommended locations to place this device on the body would be on the arms or legs. Please keep the device from sensitive areas such as the neck, spine, or chest.'
+      // ],
+      // IsItDangerous: [
+      //   {
+      //     label: "Is it Dangerous?",
+      //     fontsize: "32px",
+      //     children: [
+      //       {
+      //         label: 'Not if used responsiblity. The recommended locations to place this device on the body would be on the arms or legs. Please keep the device from sensitive areas such as the neck, spine, or chest.'
 
-            },
+      //       },
 
-          ]
-        },
+      //     ]
+      //   },
 
-      ],
-      Api: [
-        {
-          label: "Is the shocker built with an API for posisble game integration?",
-          fontsize: "32px",
-          children: [
-            {
-              label: 'Yes, each shocker has a unique API attatched to it that allows you to control shockers in new fun ways!'
+      // ],
+      // Api: [
+      //   {
+      //     label: "Is the shocker built with an API for posisble game integration?",
+      //     fontsize: "32px",
+      //     children: [
+      //       {
+      //         label: 'Yes, each shocker has a unique API attatched to it that allows you to control shockers in new fun ways!'
 
-            },
+      //       },
 
-          ]
-        },
+      //     ]
+      //   },
 
-      ],
-      shipping: [
-        {
-          label: "Do you ship internationally?",
-          fontsize: "32px",
-          children: [
-            {
-              label: 'Yes, Pishock ships its product to most countries in the world. To check if Pishock ships to your country, go through checkout to determine the shipping rates to your country'
+      // ],
+      // shipping: [
+      //   {
+      //     label: "Do you ship internationally?",
+      //     fontsize: "32px",
+      //     children: [
+      //       {
+      //         label: 'Yes, Pishock ships its product to most countries in the world. To check if Pishock ships to your country, go through checkout to determine the shipping rates to your country'
 
-            },
+      //       },
 
-          ]
-        },
+      //     ]
+      //   },
 
-      ],
+      // ],
 
       slide: ref("image1"),
       videoUrls,
