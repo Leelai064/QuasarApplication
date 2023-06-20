@@ -1,20 +1,25 @@
 <template >
   <q-page class="bg-dark">
-    <q-tabs v-model="tab" shrink class="navBar">
-      <q-tab name="Shop" label="Shop" class="shop" />
-      <q-tab name="Learn" label="Learn" class="learn" />
-      <q-tab name="Setup" label="Setup" @click="showDialog" class="setup" />
-      <q-tab name="Setup" label="F.A.Q" class="faq" @click="scrollToAnchorPoint('faq')"/>
-      <q-tab name="Setup" label="Support" class="support" />
-      <q-tab name="Setup" label="Contact" class="contact" />
-      <!-- <a class="btn-primary faq" @click="scrollToAnchorPoint('faq')">scroll test</a> -->
-    </q-tabs>
-   
-    <!-- <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 200px"
-    > -->
+    <!-- Navbar section starts -->
+    <q-toolbar class="bg-black text-white shadow-2 justify-center">
+        <q-btn class="pishockLogo" height="75px">
+          <img src="../assets/pishockLogo.png" style="height: 100px; max-width: 500px;" />
+        </q-btn>
+        <!-- <q-btn flat label="Pi-Shock" img src="../assets/pishockLogo.png" /> -->
+        <q-space />
+        <q-tabs v-model="tab" shrink class="navBar">
+          <q-tab name="Shop" label="Shop" class="shop" />
+          <q-tab name="Learn" label="Learn" class="learn" />
+          <q-tab name="Setup" label="Setup" @click="showDialog" class="setup" />
+          <q-tab name="Setup" label="F.A.Q" class="faq" @click="scrollToAnchorPoint('faq')"/>
+          <q-tab name="Setup" label="Support" class="support" />
+          <q-tab name="Setup" label="Contact" class="contact" />
+          <!-- <a class="btn-primary faq" @click="scrollToAnchorPoint('faq')">scroll test</a> -->
+        </q-tabs>
+       
+      </q-toolbar>
+   <!-- Navbar section ends -->
+  
     <div class="text-center">
       <div class="row bg-black">
         <div class="col" height="700px">

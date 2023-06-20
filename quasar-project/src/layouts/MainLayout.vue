@@ -1,24 +1,7 @@
 <template>
   <q-layout>
     <q-header elevated>
-      <q-toolbar class="bg-black text-white shadow-2 justify-center ">
-        <q-btn class="pishockLogo" height="75px">
-          <img src="../assets/pishockLogo.png" style="height: 75px; max-width: 500px;" />
-        </q-btn>
-        <!-- <q-btn flat label="Pi-Shock" img src="../assets/pishockLogo.png" /> -->
-        <q-space />
-        <!-- give these q-tabs an href? or is this done in Javascript -->
-        <!-- <q-tabs v-model="tab" shrink class="navBar">
-          <q-tab name="Shop" label="Shop" class="shop" />
-          <q-tab name="Learn" label="Learn" class="learn" />
-          <q-tab name="Setup" label="Setup" @click="showDialog" class="setup" />
-          <q-tab name="Setup" label="F.A.Q" class="faq"  />
-          <q-tab name="Setup" label="Support" class="support" />
-          <q-tab name="Setup" label="Contact" class="contact" />
-          <a class="btn-primary faq" @click="scrollToAnchorPoint('faq')">scroll test</a>
-        </q-tabs> -->
-       
-      </q-toolbar>
+      
     </q-header>
 
     <q-page-container>

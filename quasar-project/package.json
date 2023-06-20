@@ -1,8 +1,8 @@
 {
   "name": "quasar-project",
   "version": "0.0.1",
-  "description": "A Quasar Project",
-  "productName": "Quasar App",
+  "description": "PiShock Inc. Front-end web application",
+  "productName": "PiShock",
   "author": "Leelai Hayslett <Leelai.Hayslett@gmail.com>",
   "private": true,
   "scripts": {
