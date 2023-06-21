@@ -3,20 +3,53 @@
     <!-- Navbar section starts -->
     <q-toolbar class="bg-black text-white shadow-2 justify-center">
         <q-btn class="pishockLogo" height="75px">
-          <img src="../assets/pishockLogo.png" style="height: 100px; max-width: 500px;" />
+          <img src="" style="height: 100px; max-width: 500px;" />
         </q-btn>
+
         <!-- <q-btn flat label="Pi-Shock" img src="../assets/pishockLogo.png" /> -->
-        <q-space />
         <q-tabs v-model="tab" shrink class="navBar">
           <q-tab name="Shop" label="Shop" class="shop" />
-          <q-tab name="Learn" label="Learn" class="learn" />
-          <q-tab name="Setup" label="Setup" @click="showDialog" class="setup" />
+          <q-btn-dropdown auto-close stretch flat label="Learn" class="learn">
+          <q-list>
+            <q-item clickable @click="tab = 'PiShockDocs'">
+              <q-item-section>PiShock Docs</q-item-section>
+            </q-item>
+            <q-item clickable @click="tab = 'PiShockAPI'">
+              <q-item-section>PiShock API Docs</q-item-section>
+            </q-item>
+            <q-item clickable @click="tab = 'PiVaultDocs'">
+              <q-item-section>PiVault Docs</q-item-section>
+            </q-item>
+            <q-item clickable @click="tab = 'PiVaultAPI'">
+              <q-item-section>PiVault API Docs</q-item-section>
+            </q-item>
+          </q-list>
+
+        </q-btn-dropdown>
+        <q-btn-dropdown auto-close stretch flat label="Setup" class="setup">
+          <q-list>
+            <q-item clickable @click="tab = 'PiShockDocs'">
+              <q-item-section>Setup Steps</q-item-section>
+            </q-item>
+            <q-item clickable @click="tab = 'PiShockAPI'">
+              <q-item-section>Stream Tools</q-item-section>
+            </q-item>
+          </q-list>
+
+        </q-btn-dropdown>
+
           <q-tab name="Setup" label="F.A.Q" class="faq" @click="scrollToAnchorPoint('faq')"/>
           <q-tab name="Setup" label="Support" class="support" />
           <q-tab name="Setup" label="Contact" class="contact" />
           <!-- <a class="btn-primary faq" @click="scrollToAnchorPoint('faq')">scroll test</a> -->
         </q-tabs>
-       
+        <q-space />
+        <q-btn class="loginLogo" height="55px">
+          <img src="" style="height: 55px; max-width: 500px;" />
+        </q-btn>
+        <q-btn class="pishockLogo" height="55px">
+          <img src="" style="height: 65px; max-width: 500px;" />
+        </q-btn>
       </q-toolbar>
    <!-- Navbar section ends -->
   
@@ -61,7 +94,7 @@
             <video controls="" autoplay="" name="media" class="absolute-full" style="object-fit: cover; width: 100%; height: 100%;">
               <source :src="video.url" type="video/mp4"></video>
           </q-carousel-slide>-->
-          
+
           <q-carousel-slide v-for="(video, index) in videoUrls" :key="index" :name="`image${index + 1}`">
             <video controls="" autoplay="" name="media" class="absolute-full" style="object-fit: cover; width: 100%; height: 100%;">
               <source :src="video.url" type="video/mp4">
