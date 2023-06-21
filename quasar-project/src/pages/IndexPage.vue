@@ -5,7 +5,7 @@
         <q-btn class="pishockLogo" height="75px">
           <img src="../assets/pishockLogo.png" style="height: 100px; max-width: 500px;" />
         </q-btn>
-       
+
         <!-- <q-btn flat label="Pi-Shock" img src="../assets/pishockLogo.png" /> -->
         <q-space />
         <q-tabs v-model="tab" shrink class="navBar">
@@ -25,7 +25,7 @@
               <q-item-section>PiVault API Docs</q-item-section>
             </q-item>
           </q-list>
-          
+
         </q-btn-dropdown>
         <q-btn-dropdown auto-close stretch flat label="Setup" class="setup">
           <q-list>
@@ -36,19 +36,19 @@
               <q-item-section>Stream Tools</q-item-section>
             </q-item>
           </q-list>
-          
+
         </q-btn-dropdown>
           <q-tab name="Setup" label="F.A.Q" class="faq" @click="scrollToAnchorPoint('faq')"/>
           <q-tab name="Setup" label="Support" class="support" />
           <q-tab name="Setup" label="Contact" class="contact" />
           <!-- <a class="btn-primary faq" @click="scrollToAnchorPoint('faq')">scroll test</a> -->
         </q-tabs>
-         <q-space />
-        <q-btn class="pishockLogo" height="55px">
-          <img src="../assets/shoppingCart.png" style="height: 65px; max-width: 500px;" />
-        </q-btn>
+        <q-space />
         <q-btn class="loginLogo" height="55px">
           <img src="../assets/user.png" style="height: 55px; max-width: 500px;" />
+        </q-btn>
+        <q-btn class="pishockLogo" height="55px">
+          <img src="../assets/shoppingCart.png" style="height: 65px; max-width: 500px;" />
         </q-btn>
       </q-toolbar>
    <!-- Navbar section ends -->
@@ -77,7 +77,7 @@
       <!-- Carasoul containter div below -->
       <!-- the embed track needs to fit the entire container. Need to give each video an image for the thumbnails. Maybe converge this into a different format that has images and can fullscreen into video -->
       <div>
-        <q-carousel v-model="slide" animated navigation infinite control-color="white" arrows height="1250px">
+        <q-carousel v-model="slide" animated navigation infinite control-color="white" arrows height="1250px" style="background: black">
           <!-- <q-carousel-slide name="style" class="column no-wrap ">
             <embed src="https://pishockcdn.nyc3.cdn.digitaloceanspaces.com/videos/Pishockvid_Optimized.mp4" height="100%"/>
           </q-carousel-slide> -->
@@ -90,37 +90,17 @@
             <q-video class="absolute-full" src="https://www.youtube.com/embed/EvMCUh95Qxw" />
           </q-carousel-slide> =-->
 
-          <q-carousel-slide name="image1">
-              <q-video class="absolute-full" :src="videoUrls.length > 0 ? videoUrls[0].url : ''" />
-            </q-carousel-slide>
-          <q-carousel-slide v-for="(video, index) in videoUrls.slice(1)" :key="index" :name="video.name">
-              <q-video class="absolute-full" :src="video.url"/>
-          </q-carousel-slide>
+          <!--<q-carousel-slide v-for="(video, index) in videoUrls" :key="index" :name="`image${index + 1}`">
+            <video controls="" autoplay="" name="media" class="absolute-full" style="object-fit: cover; width: 100%; height: 100%;">
+              <source :src="video.url" type="video/mp4"></video>
+          </q-carousel-slide>-->
 
-          <!-- <div class="q-mt-md text-center">
-              {{ lorem }}
-            </div> -->
-          <!-- </q-carousel-slide> -->
-          <!--  <q-carousel-slide name="layers" class="column no-wrap flex-center">
-              <q-icon name="layers" size="56px" />
-              <div class="q-mt-md text-center">
-                {{ lorem }}
-              </div>
-            </q-carousel-slide>
-            <q-carousel-slide name="map" class="column no-wrap flex-center">
-              <q-icon name="terrain" size="56px" />
-              <div class="q-mt-md text-center">
-                {{ lorem }}
-              </div>
-            </q-carousel-slide> -->
+          <q-carousel-slide v-for="(video, index) in videoUrls" :key="index" :name="`image${index + 1}`">
+            <video controls="" autoplay="" name="media" class="absolute-full" style="object-fit: cover; width: 100%; height: 100%;">
+              <source :src="video.url" type="video/mp4">
+            </video>
+        </q-carousel-slide>
         </q-carousel>
-
-        <div class="row justify-center">
-          <q-btn-toggle glossy v-model="slide" :options="[
-              { label: '1', value: 'image1' },
-              { label: '2', value: 'image2' },
-            ]" />
-        </div>
       </div>
       <!-- FAQ section -->
       <div ref="faq">
@@ -141,55 +121,7 @@
               <p>{{paragraph}}</p>
           </div>
         </div>
-      
-       <!-- <div class="row justify-center">
-          <div class=" q-px-xl faq-grid q-my-xl">
-            <div class="q-pa-md q-gutter-md bg-grey-9 text-white ">
-              <q-tree :nodes="why" node-key="label" class="text-white text-h5" />
-            </div>
-          </div>
-        </div>
-
-        <div class="row justify-center">
-          <div class=" q-px-xl faq-grid q-my-xl">
-            <div class="q-pa-md q-gutter-md bg-grey-9 text-white ">
-              <q-tree :nodes="HowDoesItFeel" node-key="label" class="text-white text-h5" />
-            </div>
-          </div>
-        </div>
-
-
-        <div class="row justify-center">
-          <div class=" q-px-xl faq-grid q-my-xl">
-            <div class="q-pa-md q-gutter-md bg-grey-9 text-white ">
-              <q-tree :nodes="IsItDangerous" node-key="label" class="text-white text-h5" />
-            </div>
-          </div>
-        </div>
-
-
-        <div class="row justify-center">
-          <div class=" q-px-xl faq-grid q-my-xl">
-            <div class="q-pa-md q-gutter-md bg-grey-9 text-white ">
-              <q-tree :nodes="Api" node-key="label" class="text-white text-h5" />
-            </div>
-          </div>
-        </div>
-
-
-        <div class="row justify-center">
-          <div class=" q-px-xl faq-grid q-my-xl">
-            <div class="q-pa-md q-gutter-md bg-grey-9 text-white ">
-              <q-tree :nodes="shipping" node-key="label" class="text-white text-h5" />
-            </div>
-          </div>
-        </div>-->
       </div>
-
-      <!--<vue-embed-gist gist-id="996eb51d1de3d7498c34a161d3413692" file="regex-Tutorial" />-->
-
-
-
     </div>
 
   </q-page>
