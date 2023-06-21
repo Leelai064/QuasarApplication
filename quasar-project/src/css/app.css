@@ -1,5 +1,4 @@
 /* Navbar Section Starts Here*/
-
 .navBar{
     position: center;
     height:75px;
@@ -7,6 +6,12 @@
 /* Color of the tabs are all matching the co-exisiting layout */
 .qtab__{
     height: 75px;
+}
+.q-tab__indicator{
+    height: 0px;
+}
+.q-menu{
+    border-radius: 0px;
 }
 .q-tab__label,
 .q-btn-dropdown
