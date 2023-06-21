@@ -1,12 +1,17 @@
-/* Navbar Section */
+/* Navbar Section Starts Here*/
 
 .navBar{
-    margin-right:40%;
+    position: center;
     height:75px;
 }
 /* Color of the tabs are all matching the co-exisiting layout */
-::deep .q-tab_label{
-    font-size: 100000px;
+.qtab__{
+    height: 75px;
+}
+.q-tab__label,
+.q-btn-dropdown
+{
+    font-size: 25px;
 }
 .shop,
 .setup,
@@ -19,6 +24,17 @@
 .contact{
     color:#389bff;
 }
+.q-item__section{
+    color:#389bff;
+    font-size: 20px;
+    padding: 15px;
+}
+.q-item{
+    background-color: #1d1d1d;
+}
+
+/* Navbar section ends here */
+
 /* This section it the call to action main banner section! */
 .callToAction{
     padding: 125px;
@@ -36,3 +52,7 @@
 }
 
 /* Video Player Section */
+
+/* Media section starts here */
+
+/* Media section ends here */
