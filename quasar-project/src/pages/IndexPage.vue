@@ -134,7 +134,7 @@
 
 <script>
 import { defineComponent, ref, onBeforeMount } from 'vue'
-
+import axios from 'axios';
 // import { scroll } from 'quasar';
 
 // function scrollToEl(el) {
@@ -159,112 +159,87 @@ export default defineComponent({
   },
  
   setup() {
+    const channels = ref([]);
     const videoUrls = ref([]);
     const QNAs = ref([]);
     const loadVideoUrls = async () => {
       try {
-        const response = await fetch('https://gist.githubusercontent.com/Fedack/05242e1f4bc97afe1200df1167b16792/raw');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
+        const response = await axios.get('https://gist.githubusercontent.com/Fedack/05242e1f4bc97afe1200df1167b16792/raw');
+        const data = response.data;
         videoUrls.value = data["videoLinks"];
         QNAs.value = data["qa"];
-      } catch (error) {
-        console.error('There was a problem loading the video URLs:', error);
+      } 
+      catch (error) {
+      if (error.response) {
+        console.error(`HTTP error! status: ${error.response.status}`);
+      } else {
+        console.error('There was a problem loading the video URLs:', error.message);
       }
+    }
     };
+    async function get_oauth_token(client_id, client_secret) {
+      const url = "https://id.twitch.tv/oauth2/token";
+      const payload = {
+          'client_id': client_id,
+          'client_secret': client_secret,
+          'grant_type': 'client_credentials'
+      }
+      let response = await axios.post(url, null, { params: payload });
+      if (response.status === 200) {
+          return response.data.access_token;
+      } else {
+          throw new Error(`Failed to get access token, status code: ${response.status}`);
+      }
+    }
+
+    const loadChannels = async () => {
+      const client_id = "dl0furnqyhwdcx0gmjwaa1mj8cds2h"; // your client id
+      const client_secret = "guj8xxrimgtnyqw04y924kzm5vdtu7"; // your client secret
+
+      const access_token = await get_oauth_token(client_id, client_secret);
+      const rogue = '506114668';
+      const bb = '746655422';
+      const user_ids = [bb, rogue];
+
+      const headers = {
+        'Client-ID': client_id,
+        'Authorization': `Bearer ${access_token}`,
+      };
+
+      const requests = user_ids.map(async (user_id) => {
+        const params = { 'id': user_id };
+
+        try {
+          const response = await axios.get('https://api.twitch.tv/helix/users', { headers, params });
+
+          if (response.status === 200) {
+            return response.data.data.map(channel => ({
+              displayName: channel.display_name,
+              id: channel.id,
+              profileImageUrl: channel.profile_image_url,
+            }));
+          } else {
+            console.log(`Request returned status code ${response.status}`);
+            return null;
+          }
+        } catch (error) {
+          console.error(error);
+          return null;
+        }
+    });
+
+    const results = await Promise.allSettled(requests);
     
+    channels.value = results.filter(result => result.status === "fulfilled" && result.value != null).map(result => result.value).flat();
+  };
+
+
+    onBeforeMount(loadChannels);
     onBeforeMount(loadVideoUrls);
     return {
-      // Accordian FAQ
-      // expanded: ref(["Frquently Asked Questions"]),
-      // faq: [
-      //   {
-      //     label: "FAQ",
-      //     fontsize: "32px",
-      //     children: [
-      //       {
-      //         label: 'A custom internet connected hub which acts as a remote for one or many of a specific shocker. (One shocker is included with the PiShock Starter Kit.)'
-
-      //       },
-
-      //     ]
-      //   },
-
-      // ],
-      // why: [
-      //   {
-      //     label: "Why would I want it?",
-      //     fontsize: "32px",
-      //     children: [
-      //       {
-      //         label: "It is a great toy to use in BDSM relationships. You can use it to punish subs, allowing doms instant reactions that draws satisfying squeals. It can be brought outside and on the go, allowing public play. It is great in games like VRChat where you can see reactions. Beyond BDSM, you can integrate it with games to make them more intense. You can even use it to train habits out of you.",
-
-      //       },
-
-      //     ]
-      //   },
-      // ],
-      // HowDoesItFeel: [
-      //   {
-      //     label: "How does it feel?",
-      //     fontsize: "32px",
-      //     children: [
-      //       {
-      //         label: 'The sensation varies from person to person. Most testomonys state they feel a sharp tingling/tickle/biting senation in the area the device is attatched to.'
-
-      //       },
-
-      //     ]
-      //   },
-
-      // ],
-      // IsItDangerous: [
-      //   {
-      //     label: "Is it Dangerous?",
-      //     fontsize: "32px",
-      //     children: [
-      //       {
-      //         label: 'Not if used responsiblity. The recommended locations to place this device on the body would be on the arms or legs. Please keep the device from sensitive areas such as the neck, spine, or chest.'
-
-      //       },
-
-      //     ]
-      //   },
-
-      // ],
-      // Api: [
-      //   {
-      //     label: "Is the shocker built with an API for posisble game integration?",
-      //     fontsize: "32px",
-      //     children: [
-      //       {
-      //         label: 'Yes, each shocker has a unique API attatched to it that allows you to control shockers in new fun ways!'
-
-      //       },
-
-      //     ]
-      //   },
-
-      // ],
-      // shipping: [
-      //   {
-      //     label: "Do you ship internationally?",
-      //     fontsize: "32px",
-      //     children: [
-      //       {
-      //         label: 'Yes, Pishock ships its product to most countries in the world. To check if Pishock ships to your country, go through checkout to determine the shipping rates to your country'
-
-      //       },
-
-      //     ]
-      //   },
-
-      // ],
-
       slide: ref("image1"),
       videoUrls,
+      channels,
       QNAs,
       lorem: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo."
     };
