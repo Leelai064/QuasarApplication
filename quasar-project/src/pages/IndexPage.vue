@@ -100,7 +100,29 @@
             <video controls="" autoplay="" name="media" class="absolute-full" style="object-fit: cover; width: 100%; height: 100%;">
               <source :src="video.url" type="video/mp4">
             </video>
-        </q-carousel-slide>
+          </q-carousel-slide>
+        </q-carousel>
+      </div>
+      <!-- Social Carasoul containter div below -->
+      <div style="width: 50%; margin: 0 auto; padding-bottom: 16px;">
+        <q-carousel v-model="slide" 
+          animated
+          arrows
+          navigation
+          infinite
+           class="bg-black text-white shadow-1"
+        >
+         <q-carousel-slide
+            v-for="(affiliate, index) in affiliates"
+            :key="index"
+            :name="index.toString()"
+            
+          >
+          <img class="absolute-topcenter" :src="affiliate.profile_image"  width="168" height="168" />
+           <div class="absolute-center text-center" style="width: 50%; margin: 0 auto; padding-top: 25px;">
+              <div class="text-white q-mb-sm">{{ affiliate.description }}</div>
+            </div>
+          </q-carousel-slide>
         </q-carousel>
       </div>
       <!-- FAQ section -->
@@ -160,7 +182,7 @@ export default defineComponent({
   },
  
   setup() {
-    const channels = ref([]);
+    const affiliates = ref([]);
     const videoUrls = ref([]);
     const QNAs = ref([]);
     const loadVideoUrls = async () => {
@@ -193,38 +215,38 @@ export default defineComponent({
       }
     }
 
-    const loadChannels = async () => {
+    const loadAffiliates = async () => {
       const client_id = "dl0furnqyhwdcx0gmjwaa1mj8cds2h"; // your client id
       const client_secret = "guj8xxrimgtnyqw04y924kzm5vdtu7"; // your client secret
 
       const access_token = await get_oauth_token(client_id, client_secret);
-      const affiliates = jsonData["affiliates"];
+      const affiliatesjson = jsonData["affiliates"];
       const headers = {
         'Client-ID': client_id,
         'Authorization': `Bearer ${access_token}`,
       };
 
-      const requests = affiliates.map(async (affiliate) => {
+      const requests = affiliatesjson.map(async (affiliate) => {
 
         try {
-          if (!affiliates.fetch_twitch || affiliates.user_id  == null)
+          if (!affiliate.fetch_twitch || affiliate.user_id  == null)
           {
             return{
               displayName: affiliate.name,
               id: affiliate.user_id,
-              profileImageUrl: affiliate.profile_image,
+              profile_image: affiliate.profile_image,
               description: affiliate.description
             };
             
           }
-          const params = { 'id': affiliates.user_id };
+          const params = { 'id': affiliate.user_id };
           const response = await axios.get('https://api.twitch.tv/helix/users', { headers, params });
 
           if (response.status === 200) {
             return response.data.data.map(channel => ({
               displayName: channel.display_name,
               id: channel.id,
-              profileImageUrl: channel.profile_image_url,
+              profile_image: channel.profile_image_url,
               description: affiliate.description
             }));
           } else {
@@ -239,16 +261,16 @@ export default defineComponent({
 
     const results = await Promise.allSettled(requests);
     
-    channels.value = results.filter(result => result.status === "fulfilled" && result.value != null).map(result => result.value).flat();
+    affiliates.value = results.filter(result => result.status === "fulfilled" && result.value != null).map(result => result.value).flat();
   };
 
 
-    onBeforeMount(loadChannels);
+    onBeforeMount(loadAffiliates);
     onBeforeMount(loadVideoUrls);
     return {
       slide: ref("image1"),
       videoUrls,
-      channels,
+      affiliates,
       QNAs,
       lorem: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo."
     };
