@@ -38,7 +38,6 @@
           </q-list>
           
         </q-btn-dropdown>
-          <q-tab name="Setup" label="Setup" @click="showDialog" class="setup" />
           <q-tab name="Setup" label="F.A.Q" class="faq" @click="scrollToAnchorPoint('faq')"/>
           <q-tab name="Setup" label="Support" class="support" />
           <q-tab name="Setup" label="Contact" class="contact" />
