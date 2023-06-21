@@ -3,10 +3,11 @@
     <!-- Navbar section starts -->
     <q-toolbar class="bg-black text-white shadow-2 justify-center">
         <q-btn class="pishockLogo" height="75px">
-          <img src="" style="height: 100px; max-width: 500px;" />
+          <img src="../assets/pishockLogo.png" style="height: 100px; max-width: 500px;" />
         </q-btn>
 
         <!-- <q-btn flat label="Pi-Shock" img src="../assets/pishockLogo.png" /> -->
+        <q-space />
         <q-tabs v-model="tab" shrink class="navBar">
           <q-tab name="Shop" label="Shop" class="shop" />
           <q-btn-dropdown auto-close stretch flat label="Learn" class="learn">
@@ -45,10 +46,10 @@
         </q-tabs>
         <q-space />
         <q-btn class="loginLogo" height="55px">
-          <img src="" style="height: 55px; max-width: 500px;" />
+          <img src="../assets/user.png" style="height: 55px; max-width: 500px;" />
         </q-btn>
         <q-btn class="pishockLogo" height="55px">
-          <img src="" style="height: 65px; max-width: 500px;" />
+          <img src="../assets/shoppingCart.png" style="height: 65px; max-width: 500px;" />
         </q-btn>
       </q-toolbar>
    <!-- Navbar section ends -->
