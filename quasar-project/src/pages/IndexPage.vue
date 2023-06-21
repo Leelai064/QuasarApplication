@@ -135,6 +135,7 @@
 <script>
 import { defineComponent, ref, onBeforeMount } from 'vue'
 import axios from 'axios';
+import jsonData from '../assets/affiliates.json';
 // import { scroll } from 'quasar';
 
 // function scrollToEl(el) {
@@ -197,19 +198,26 @@ export default defineComponent({
       const client_secret = "guj8xxrimgtnyqw04y924kzm5vdtu7"; // your client secret
 
       const access_token = await get_oauth_token(client_id, client_secret);
-      const rogue = '506114668';
-      const bb = '746655422';
-      const user_ids = [bb, rogue];
-
+      const affiliates = jsonData["affiliates"];
       const headers = {
         'Client-ID': client_id,
         'Authorization': `Bearer ${access_token}`,
       };
 
-      const requests = user_ids.map(async (user_id) => {
-        const params = { 'id': user_id };
+      const requests = affiliates.map(async (affiliate) => {
 
         try {
+          if (!affiliates.fetch_twitch || affiliates.user_id  == null)
+          {
+            return{
+              displayName: affiliate.name,
+              id: affiliate.user_id,
+              profileImageUrl: affiliate.profile_image,
+              description: affiliate.description
+            };
+            
+          }
+          const params = { 'id': affiliates.user_id };
           const response = await axios.get('https://api.twitch.tv/helix/users', { headers, params });
 
           if (response.status === 200) {
@@ -217,6 +225,7 @@ export default defineComponent({
               displayName: channel.display_name,
               id: channel.id,
               profileImageUrl: channel.profile_image_url,
+              description: affiliate.description
             }));
           } else {
             console.log(`Request returned status code ${response.status}`);
