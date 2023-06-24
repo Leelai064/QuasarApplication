@@ -12,16 +12,16 @@
           <q-tab name="Shop" label="Shop" class="shop" />
           <q-btn-dropdown auto-close stretch flat label="Learn" class="learn">
           <q-list>
-            <q-item clickable @click="tab = 'PiShockDocs'">
+            <q-item clickable @click="enablePiShockDocs = !enablePiShockDocs">
               <q-item-section>PiShock Docs</q-item-section>
             </q-item>
-            <q-item clickable @click="tab = 'PiShockAPI'">
+            <q-item clickable @click="enablePiShockApiDocs = !enablePiShockApiDocs">
               <q-item-section>PiShock API Docs</q-item-section>
             </q-item>
-            <q-item clickable @click="tab = 'PiVaultDocs'">
+            <q-item clickable @click="enablePiVaultDocs = !enablePiVaultDocs">
               <q-item-section>PiVault Docs</q-item-section>
             </q-item>
-            <q-item clickable @click="tab = 'PiVaultAPI'">
+            <q-item clickable @click="enablePiVaultApiDocs = !enablePiVaultApiDocs">
               <q-item-section>PiVault API Docs</q-item-section>
             </q-item>
           </q-list>
@@ -29,10 +29,10 @@
         </q-btn-dropdown>
         <q-btn-dropdown auto-close stretch flat label="Setup" class="setup">
           <q-list>
-            <q-item clickable @click="tab = 'PiShockDocs'">
-              <q-item-section>Setup Steps</q-item-section>
-            </q-item>
-            <q-item clickable @click="tab = 'PiShockAPI'">
+            <q-item clickable to="/setup">
+                <q-item-section>Setup Steps</q-item-section>
+              </q-item>
+            <q-item clickable href="https://stream.pishock.com">
               <q-item-section>Stream Tools</q-item-section>
             </q-item>
           </q-list>
@@ -146,7 +146,26 @@
         </div>
       </div>
     </div>
-
+    <vue-markdown
+      :enable="enablePiShockDocs"
+      v-on:close="enablePiShockDocs = false"
+      target="PiShock"
+    />
+    <vue-markdown
+      :enable="enablePiShockApiDocs"
+      v-on:close="enablePiShockApiDocs = false"
+      target="pishock_api"
+    />
+    <vue-markdown
+      :enable="enablePiVaultApiDocs"
+      v-on:close="enablePiVaultApiDocs = false"
+      target="pivault_api"
+    />
+    <vue-markdown
+      :enable="enablePiVaultDocs"
+      v-on:close="enablePiVaultDocs = false"
+      target="PiVault"
+    />
   </q-page>
 </template>
 
@@ -158,6 +177,7 @@
 import { defineComponent, ref, onBeforeMount } from 'vue'
 import axios from 'axios';
 import jsonData from '../assets/affiliates.json';
+import VueMarkdown from '../components/VueMarkdown.vue'
 // import { scroll } from 'quasar';
 
 // function scrollToEl(el) {
@@ -174,13 +194,23 @@ export default defineComponent({
   created() {
     this.windowHeight = window.innerHeight + 'px'
   },
+  data(){
+    return { 
+       enablePiShockDocs: false,
+       enablePiShockApiDocs: false,
+       enablePiVaultApiDocs: false,
+       enablePiVaultDocs : false
+    }
+  },
   methods: {
     scrollToAnchorPoint(x) {
       const el = this.$refs[x]
       el.scrollIntoView({ behavior: 'smooth' })
     }
   },
- 
+  components: {
+    VueMarkdown
+  },
   setup() {
     const affiliates = ref([]);
     const videoUrls = ref([]);
