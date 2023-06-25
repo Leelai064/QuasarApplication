@@ -5,11 +5,10 @@
         <q-btn class="pishockLogo" height="75px">
           <img src="../assets/pishockLogo.png" style="height: 100px; max-width: 500px;" />
         </q-btn>
-
         <!-- <q-btn flat label="Pi-Shock" img src="../assets/pishockLogo.png" /> -->
         <q-space />
         <q-tabs v-model="tab" shrink class="navBar">
-          <q-tab name="Shop" label="Shop" class="shop" />
+          <q-tab name="Shop"  label="Shop" class="shop" clickable @click="enableCheckout = !enableCheckout"/>
           <q-btn-dropdown auto-close stretch flat label="Learn" class="learn">
           <q-list>
             <q-item clickable @click="enablePiShockDocs = !enablePiShockDocs">
@@ -53,7 +52,6 @@
         </q-btn>
       </q-toolbar>
    <!-- Navbar section ends -->
-  
     <div class="text-center">
       <div class="row bg-black">
         <div class="col" height="700px">
@@ -96,7 +94,7 @@
               <source :src="video.url" type="video/mp4"></video>
           </q-carousel-slide>-->
 
-          <q-carousel-slide v-for="(video, index) in videoUrls" :key="index" :name="`image${index + 1}`">
+          <q-carousel-slide v-for="(video, index) in videoUrls" :key="index" :name="`${index}`">
             <video controls="" autoplay="" name="media" class="absolute-full" style="object-fit: cover; width: 100%; height: 100%;">
               <source :src="video.url" type="video/mp4">
             </video>
@@ -105,21 +103,19 @@
       </div>
       <!-- Social Carasoul containter div below -->
       <div style="width: 50%; margin: 0 auto; padding-bottom: 16px;">
-        <q-carousel v-model="slide" 
+        <q-carousel v-model="slide2" 
           animated
           arrows
           navigation
           infinite
-           class="bg-black text-white shadow-1"
+           class="bg-black text-white shadow-1" 
         >
          <q-carousel-slide
             v-for="(affiliate, index) in affiliates"
             :key="index"
-            :name="index.toString()"
-            
-          >
-          <img class="absolute-topcenter" :src="affiliate.profile_image"  width="168" height="168" />
-           <div class="absolute-center text-center" style="width: 50%; margin: 0 auto; padding-top: 25px;">
+            :name="`${index}`">
+            <img :src="affiliate.profile_image"  width="168" height="168" />
+            <div style="width: 50%; margin: 0 auto; padding-top: 25px;">
               <div class="text-white q-mb-sm">{{ affiliate.description }}</div>
             </div>
           </q-carousel-slide>
@@ -166,6 +162,10 @@
       v-on:close="enablePiVaultDocs = false"
       target="PiVault"
     />
+    <Checkout
+      :enable="enableCheckout"
+      v-on:close="enableCheckout = false"
+    />
   </q-page>
 </template>
 
@@ -175,9 +175,10 @@
 
 <script>
 import { defineComponent, ref, onBeforeMount } from 'vue'
-import axios from 'axios';
 import jsonData from '../assets/affiliates.json';
 import VueMarkdown from '../components/VueMarkdown.vue'
+import Checkout from '../components/Checkout.vue'
+import axios from 'axios';
 // import { scroll } from 'quasar';
 
 // function scrollToEl(el) {
@@ -199,7 +200,8 @@ export default defineComponent({
        enablePiShockDocs: false,
        enablePiShockApiDocs: false,
        enablePiVaultApiDocs: false,
-       enablePiVaultDocs : false
+       enablePiVaultDocs : false,
+       enableCheckout : false
     }
   },
   methods: {
@@ -209,8 +211,9 @@ export default defineComponent({
     }
   },
   components: {
-    VueMarkdown
-  },
+    VueMarkdown,
+    Checkout
+},
   setup() {
     const affiliates = ref([]);
     const videoUrls = ref([]);
@@ -298,7 +301,8 @@ export default defineComponent({
     onBeforeMount(loadAffiliates);
     onBeforeMount(loadVideoUrls);
     return {
-      slide: ref("image1"),
+      slide: ref("0"),
+      slide2: ref("0"),
       videoUrls,
       affiliates,
       QNAs,
