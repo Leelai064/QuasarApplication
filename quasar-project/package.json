@@ -15,10 +15,13 @@
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "axios": "^1.4.0",
+    "currency-symbol-map": "^5.1.0",
     "quasar": "^2.6.0",
+    "shopify-buy": "^2.19.0",
     "vue": "^3.0.0",
     "vue-embed-gist": "^1.2.0",
-    "vue-router": "^4.0.0"
+    "vue-router": "^4.0.0",
+    "vue-showdown": "^4.1.0"
   },
   "devDependencies": {
     "@quasar/app-vite": "^1.0.0",

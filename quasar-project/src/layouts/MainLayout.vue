@@ -1,7 +1,7 @@
 <template>
   <q-layout>
     <q-header elevated>
-      
+
     </q-header>
 
     <q-page-container>
@@ -9,10 +9,18 @@
     </q-page-container>
 
     <!-- Footer Section -->
-    <q-footer bordered="5px" color="yellow" elevated>
-      <q-toolbar>
-        <q-toolbar-title>Footer</q-toolbar-title>
-      </q-toolbar>
+    <q-footer class="bg-black q-footer text-white shadow-2 justify-center" height="50px">
+      <div class="row"></div>
+        <div class="row">
+          <q-btn v-for="link in links" :key="link" class="mx-2 footerBtns " variant= "text" rounded="xl">
+            {{ link }}
+          </q-btn>
+        </div>
+        <div class="row"></div>
+        <div class=" col-4 text-center mt-5" cols="15">
+          {{ new Date().getFullYear() }} — <strong>PiShock Inc.</strong>
+        </div>
+ 
     </q-footer>
   </q-layout>
 </template>
@@ -79,6 +87,15 @@ export default defineComponent({
       el.scrollIntoView({ behavior: 'smooth' })
     }
   },
+  data: () => ({
+    links: [
+      'Home',
+      'Privacy Policy',
+      'Terms and Conditions',
+      'Returns Policy',
+      'Contact Us',
+    ],
+  }),
   setup() {
     // const $q = useQuasar()
     return {
