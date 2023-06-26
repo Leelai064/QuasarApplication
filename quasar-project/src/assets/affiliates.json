@@ -1,0 +1,25 @@
+{
+    "affiliates": [
+        {
+            "name": "Dan",
+            "user_id": null,
+            "fetch_twitch": false,
+            "profile_image": "https://cdn.discordapp.com/avatars/1063920464029818960/b3ddc114ffd32f3dcbeb5ca6aeaa2a45.webp?size=100",
+            "description": ""
+        },
+        {
+            "name": "beautybanger",
+            "user_id": "746655422",
+            "fetch_twitch": true,
+            "profile_image": "https://static-cdn.jtvnw.net/jtv_user_pictures/b8ed5f3d-c125-42bd-8335-ec7064a45e13-profile_image-300x300.png",
+            "description": "Can't wait to get my hands on her again ^.^"
+        },
+        {
+            "name": "Rogue064",
+            "user_id": "506114668",
+            "fetch_twitch": true,
+            "profile_image": "https://static-cdn.jtvnw.net/jtv_user_pictures/752611c2-9a48-454f-b83b-b174c6d57f1f-profile_image-300x300.png",
+            "description": ""
+        }
+    ]
+}
