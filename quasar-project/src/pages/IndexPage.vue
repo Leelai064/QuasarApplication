@@ -48,8 +48,10 @@
       <q-btn class="loginLogo" height="55px">
         <img src="../assets/user.png" style="height: 55px; max-width: 500px;" />
       </q-btn>
-      <q-btn class="pishockLogo" height="55px">
-        <img src="../assets/shoppingCart.png" style="height: 65px; max-width: 500px;" />
+      <div style="height: 65px; width: 100px; "></div>
+      <q-btn class="pishockLogo" color=black style="position: fixed; top: 18px; right: 12px; z-index: 9999;" clickable
+        @click="enableCheckout = !enableCheckout">
+        <img src="../assets/shoppingCart.png" style="height: 65px; max-width: 500px; " />
       </q-btn>
     </q-toolbar>
     <!-- Navbar section ends -->
@@ -79,7 +81,7 @@
           <!-- Button Container displayed as columns -->
           <div class="buttonContainer ">
             <div class="row q-pl-lg justify-center shop">
-              <q-btn style="background: goldenrod; color: black" label="Shop" class="q-mr-sm shopbtn" />
+              <q-btn style="background: goldenrod; color: black" label="Shop" class="q-mr-sm shopbtn"  @click="enableCheckout = !enableCheckout" />
               <q-btn style="background: goldenrod; color: black" label="&#9654; Watch Video" class="videobtn" />
 
 
@@ -159,7 +161,7 @@
 
       </section>
       <!-- About Me Description Section -->
-      <section class="aboutMeSection">
+      <section class="aboutMeSection" style="background: black">
         <div class="row aboutMeRow">
           <div class="col lethosLearnMore">
             <p class="aboutTitle">About the Creator</p>
@@ -183,14 +185,23 @@
 
       </section>
       <!-- FAQ section -->
-      <h1>Frequently Asked Questions</h1>
+      <section class="faqsection" style="background: black">
+      <h1 class="text-blue">Frequently Asked Questions</h1>
       <div class="FAQ">
-        <div ref="faq">
-          <q-expansion-item label="" data-hover="Click to Learn More">
-            <q-tooltip>
-              Some text as content of Tooltip
-            </q-tooltip>
-            <div v-for="(QA, index) in QNAs" :key="index" class="q-pa-md q-gutter-md bg-grey-9 text-white " id="faq">
+        <div ref="faq" >
+          <div v-for="(QA, index) in QNAs.filter((_, i) => i <= 2)" :key="index" class="q-pa-md q-gutter-md  text-white "
+            id="faq">
+            <div v-if="index <= 2">
+              <div class="text-white text-h5">{{ QA.question }}</div>
+              <div v-for="(paragraph, pIndex) in QA.paragraphs" :key="pIndex" class="">
+                <p>{{ paragraph }}</p>
+              </div>
+            </div>
+          </div>
+          <q-expansion-item label="" data-hover="Click to Learn More" v-model="expanded" class="custom-expansion">
+
+            <div v-for="(QA, index) in QNAs.filter((_, i) => i > 2)" :key="index" class="q-pa-md q-gutter-md text-white "
+              id="faq">
               <div class="text-white text-h5">{{ QA.question }}</div>
               <div v-for="(paragraph, pIndex) in QA.paragraphs" :key="pIndex" class="">
                 <p>{{ paragraph }}</p>
@@ -198,12 +209,18 @@
             </div>
 
           </q-expansion-item>
-          <div class="row justify-center dropDown" id="faq">
+          <q-btn @click.stop="toggle" dense flat class="on-left self-center full-width" style="min-height: 70px; padding: 8px 16px; 
+        color: inherit;" :style="{ transform: `rotate(${expanded ? 180 : 0}deg)` }">
+            <q-icon clickable click="toggle(index)" color="yellow" name="expand_more" size="24px"
+              :style="{ transform: expanded ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.3s ease' }" />
+          </q-btn>
+          <div class="row justify-center" id="faq">
 
           </div>
         </div>
 
       </div>
+    </section>
     </div>
     <vue-markdown :enable="enablePiShockDocs" v-on:close="enablePiShockDocs = false" target="PiShock" />
     <vue-markdown :enable="enablePiShockApiDocs" v-on:close="enablePiShockApiDocs = false" target="pishock_api" />
@@ -260,6 +277,11 @@ export default defineComponent({
     Checkout
   },
   setup() {
+    const expanded = ref(false);
+
+    const toggle = () => {
+      expanded.value = !expanded.value;
+    }
     const affiliates = ref([]);
     const videoUrls = ref([]);
     const QNAs = ref([]);
@@ -342,9 +364,9 @@ export default defineComponent({
     onBeforeMount(loadAffiliates);
     onBeforeMount(loadVideoUrls);
     return {
-      expanded: ref(false),
+      toggle,
+      expanded,
       slide: ref("0"),
-      slide2: ref("0"),
       videoUrls,
       affiliates,
       QNAs,

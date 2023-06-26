@@ -106,6 +106,10 @@ br,
 .FAQ {
   background-color: black;
 }
+.custom-expansion .q-expansion-item__toggle-icon,
+.custom-expansion .q-item {
+  display: none;
+}
 .q-item__section,
 .cusor-pointer {
   margin-right: 50%;
