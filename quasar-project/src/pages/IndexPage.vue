@@ -54,7 +54,7 @@
     </q-toolbar>
     <!-- Navbar section ends -->
     <!-- Breaker here add animation charging up -->
-<div class="navBreaker"></div>
+    <div class="navBreaker"></div>
     <!-- Sidebar/QDrawer on the right hands side Starts -->
     <!-- <q-drawer show-if-above v-model="rightDrawerOpen" side="right">
 
@@ -101,38 +101,48 @@
       <section>
 
         <div>
-          <div class="row">
-            <div class="col">
-              
-      <q-card class="">
-        <q-img src="https://cdn.quasar.dev/img/parallax2.jpg">
+          <div class="col">
+          
+              <q-card class="">
+                <q-img src="https://cdn.quasar.dev/img/parallax2.jpg">
 
-          <div class="container absolute-bottom text-title1 text-center">
-            <h4 class="text-center">Miss Rogue</h4>
-            <p>Hello its me</p>
-          </div>
-        </q-img>
-      </q-card>
-            </div>
-            <div class="col">
-              .col
-            </div>
-            <div class="col">
-              .col
-            </div>
+                  <div class="container absolute-bottom text-title1 text-center">
+                    <h4 class="text-center">Miss Rogue</h4>
+                    <p>Hello its me</p>
+                  </div>
+                </q-img>
+              </q-card>
+
           </div>
         </div>
 
       </section>
-      <!-- Icon Description Section -->
+      <!-- Social section ends -->
+
+      <!-- About the Creator Starts -->
+      <section>
+        <div class="col">
+
+          <img src="../assets/lethosAboutMeImg.png" />
+
+        </div>
+        <div class="col card">
+
+
+        </div>
+      </section>
+
+      <!-- About the Creator -->
+
+
       <!-- FAQ section -->
       <section>
         <h1>Frequently Asked Questions</h1>
         <div ref="faq">
           <q-expansion-item label="" data-hover="Click to Learn More">
             <q-tooltip>
-          Some text as content of Tooltip
-        </q-tooltip>
+              Some text as content of Tooltip
+            </q-tooltip>
 
             <div v-for="(QA, index) in QNAs" :key="index" class="q-pa-md q-gutter-md bg-grey-9 text-white " id="faq">
               <div class="text-white text-h5">{{ QA.question }}</div>
@@ -184,7 +194,7 @@ export default defineComponent({
   },
 
   setup() {
-    
+
     const videoUrls = ref([]);
     const QNAs = ref([]);
     const loadVideoUrls = async () => {
