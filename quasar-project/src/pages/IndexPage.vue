@@ -9,19 +9,19 @@
       <!-- <q-btn flat label="Pi-Shock" img src="../assets/pishockLogo.png" /> -->
       <q-space />
       <q-tabs v-model="tab" shrink class="navBar">
-        <q-tab name="Shop" label="Shop" class="shop" />
+        <q-tab name="Shop" label="Shop" class="shop" clickable @click="enableCheckout = !enableCheckout"/>
         <q-btn-dropdown auto-close stretch flat label="Learn" class="learn">
           <q-list>
-            <q-item clickable @click="tab = 'PiShockDocs'">
+            <q-item clickable @click="enablePiShockDocs = !enablePiShockDocs">
               <q-item-section>PiShock Docs</q-item-section>
             </q-item>
-            <q-item clickable @click="tab = 'PiShockAPI'">
+            <q-item clickable @click="enablePiShockApiDocs = !enablePiShockApiDocs">
               <q-item-section>PiShock API Docs</q-item-section>
             </q-item>
-            <q-item clickable @click="tab = 'PiVaultDocs'">
+            <q-item clickable @click="enablePiVaultDocs = !enablePiVaultDocs">
               <q-item-section>PiVault Docs</q-item-section>
             </q-item>
-            <q-item clickable @click="tab = 'PiVaultAPI'">
+            <q-item clickable @click="enablePiVaultApiDocs = !enablePiVaultApiDocs">
               <q-item-section>PiVault API Docs</q-item-section>
             </q-item>
           </q-list>
@@ -29,10 +29,10 @@
         </q-btn-dropdown>
         <q-btn-dropdown auto-close stretch flat label="Setup" class="setup">
           <q-list>
-            <q-item clickable @click="tab = 'PiShockDocs'">
+            <q-item clickable to="/setup">
               <q-item-section>Setup Steps</q-item-section>
             </q-item>
-            <q-item clickable @click="tab = 'PiShockAPI'">
+            <q-item clickable href="https://stream.pishock.com">
               <q-item-section>Stream Tools</q-item-section>
             </q-item>
           </q-list>
@@ -89,7 +89,7 @@
         <q-carousel v-model="slide" animated navigation infinite control-color="white" arrows height="1250px"
           style="background: black">
 
-          <q-carousel-slide v-for="(video, index) in videoUrls" :key="index" :name="`image${index + 1}`">
+          <q-carousel-slide v-for="(video, index) in videoUrls" :key="index" :name="`${index + 1}`">
             <video controls="" autoplay="" name="media" class="static"
               style="object-fit: cover; width: 95%; height: 100%;">
               <source :src="video.url" type="video/mp4">
@@ -159,7 +159,30 @@
 
       </section>
     </div>
-
+    <vue-markdown
+      :enable="enablePiShockDocs"
+      v-on:close="enablePiShockDocs = false"
+      target="PiShock"
+    />
+    <vue-markdown
+      :enable="enablePiShockApiDocs"
+      v-on:close="enablePiShockApiDocs = false"
+      target="pishock_api"
+    />
+    <vue-markdown
+      :enable="enablePiVaultApiDocs"
+      v-on:close="enablePiVaultApiDocs = false"
+      target="pivault_api"
+    />
+    <vue-markdown
+      :enable="enablePiVaultDocs"
+      v-on:close="enablePiVaultDocs = false"
+      target="PiVault"
+    />
+    <Checkout
+      :enable="enableCheckout"
+      v-on:close="enableCheckout = false"
+    />
   </q-page>
 </template>
 
@@ -168,8 +191,11 @@
 </style>
 
 <script>
-import { defineComponent, ref, onBeforeMount } from 'vue'
-
+import { defineComponent, ref, onBeforeMount } from 'vue';
+import jsonData from '../assets/affiliates.json';
+import VueMarkdown from '../components/VueMarkdown.vue';
+import Checkout from '../components/Checkout.vue';
+import axios from 'axios';
 // import { scroll } from 'quasar';
 
 // function scrollToEl(el) {
@@ -186,15 +212,27 @@ export default defineComponent({
   created() {
     this.windowHeight = window.innerHeight + 'px'
   },
+  data(){
+    return { 
+       enablePiShockDocs: false,
+       enablePiShockApiDocs: false,
+       enablePiVaultApiDocs: false,
+       enablePiVaultDocs : false,
+       enableCheckout : false
+    }
+  },
   methods: {
     scrollToAnchorPoint(x) {
       const el = this.$refs[x]
       el.scrollIntoView({ behavior: 'smooth' })
     }
   },
-
+  components: {
+    VueMarkdown,
+    Checkout
+  },
   setup() {
-
+    
     const videoUrls = ref([]);
     const QNAs = ref([]);
     const loadVideoUrls = async () => {
@@ -214,8 +252,10 @@ export default defineComponent({
     onBeforeMount(loadVideoUrls);
     return {
       expanded: ref(false),
-      slide: ref("image1"),
+      slide: ref("0"),
+      slide2: ref("0"),
       videoUrls,
+      affiliates,
       QNAs,
       lorem: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo."
     };
