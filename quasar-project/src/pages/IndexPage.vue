@@ -5,23 +5,22 @@
         <q-btn class="pishockLogo" height="75px">
           <img src="../assets/pishockLogo.png" style="height: 100px; max-width: 500px;" />
         </q-btn>
-
         <!-- <q-btn flat label="Pi-Shock" img src="../assets/pishockLogo.png" /> -->
         <q-space />
         <q-tabs v-model="tab" shrink class="navBar">
-          <q-tab name="Shop" label="Shop" class="shop" />
+          <q-tab name="Shop"  label="Shop" class="shop" clickable @click="enableCheckout = !enableCheckout"/>
           <q-btn-dropdown auto-close stretch flat label="Learn" class="learn">
           <q-list>
-            <q-item clickable @click="tab = 'PiShockDocs'">
+            <q-item clickable @click="enablePiShockDocs = !enablePiShockDocs">
               <q-item-section>PiShock Docs</q-item-section>
             </q-item>
-            <q-item clickable @click="tab = 'PiShockAPI'">
+            <q-item clickable @click="enablePiShockApiDocs = !enablePiShockApiDocs">
               <q-item-section>PiShock API Docs</q-item-section>
             </q-item>
-            <q-item clickable @click="tab = 'PiVaultDocs'">
+            <q-item clickable @click="enablePiVaultDocs = !enablePiVaultDocs">
               <q-item-section>PiVault Docs</q-item-section>
             </q-item>
-            <q-item clickable @click="tab = 'PiVaultAPI'">
+            <q-item clickable @click="enablePiVaultApiDocs = !enablePiVaultApiDocs">
               <q-item-section>PiVault API Docs</q-item-section>
             </q-item>
           </q-list>
@@ -29,10 +28,10 @@
         </q-btn-dropdown>
         <q-btn-dropdown auto-close stretch flat label="Setup" class="setup">
           <q-list>
-            <q-item clickable @click="tab = 'PiShockDocs'">
-              <q-item-section>Setup Steps</q-item-section>
-            </q-item>
-            <q-item clickable @click="tab = 'PiShockAPI'">
+            <q-item clickable to="/setup">
+                <q-item-section>Setup Steps</q-item-section>
+              </q-item>
+            <q-item clickable href="https://stream.pishock.com">
               <q-item-section>Stream Tools</q-item-section>
             </q-item>
           </q-list>
@@ -53,7 +52,6 @@
         </q-btn>
       </q-toolbar>
    <!-- Navbar section ends -->
-  
     <div class="text-center">
       <div class="row bg-black">
         <div class="col" height="700px">
@@ -96,7 +94,7 @@
               <source :src="video.url" type="video/mp4"></video>
           </q-carousel-slide>-->
 
-          <q-carousel-slide v-for="(video, index) in videoUrls" :key="index" :name="`image${index + 1}`">
+          <q-carousel-slide v-for="(video, index) in videoUrls" :key="index" :name="`${index}`">
             <video controls="" autoplay="" name="media" class="absolute-full" style="object-fit: cover; width: 100%; height: 100%;">
               <source :src="video.url" type="video/mp4">
             </video>
@@ -105,21 +103,19 @@
       </div>
       <!-- Social Carasoul containter div below -->
       <div style="width: 50%; margin: 0 auto; padding-bottom: 16px;">
-        <q-carousel v-model="slide" 
+        <q-carousel v-model="slide2" 
           animated
           arrows
           navigation
           infinite
-           class="bg-black text-white shadow-1"
+           class="bg-black text-white shadow-1" 
         >
          <q-carousel-slide
             v-for="(affiliate, index) in affiliates"
             :key="index"
-            :name="index.toString()"
-            
-          >
-          <img class="absolute-topcenter" :src="affiliate.profile_image"  width="168" height="168" />
-           <div class="absolute-center text-center" style="width: 50%; margin: 0 auto; padding-top: 25px;">
+            :name="`${index}`">
+            <img :src="affiliate.profile_image"  width="168" height="168" />
+            <div style="width: 50%; margin: 0 auto; padding-top: 25px;">
               <div class="text-white q-mb-sm">{{ affiliate.description }}</div>
             </div>
           </q-carousel-slide>
@@ -146,7 +142,30 @@
         </div>
       </div>
     </div>
-
+    <vue-markdown
+      :enable="enablePiShockDocs"
+      v-on:close="enablePiShockDocs = false"
+      target="PiShock"
+    />
+    <vue-markdown
+      :enable="enablePiShockApiDocs"
+      v-on:close="enablePiShockApiDocs = false"
+      target="pishock_api"
+    />
+    <vue-markdown
+      :enable="enablePiVaultApiDocs"
+      v-on:close="enablePiVaultApiDocs = false"
+      target="pivault_api"
+    />
+    <vue-markdown
+      :enable="enablePiVaultDocs"
+      v-on:close="enablePiVaultDocs = false"
+      target="PiVault"
+    />
+    <Checkout
+      :enable="enableCheckout"
+      v-on:close="enableCheckout = false"
+    />
   </q-page>
 </template>
 
@@ -156,8 +175,10 @@
 
 <script>
 import { defineComponent, ref, onBeforeMount } from 'vue'
-import axios from 'axios';
 import jsonData from '../assets/affiliates.json';
+import VueMarkdown from '../components/VueMarkdown.vue'
+import Checkout from '../components/Checkout.vue'
+import axios from 'axios';
 // import { scroll } from 'quasar';
 
 // function scrollToEl(el) {
@@ -174,13 +195,25 @@ export default defineComponent({
   created() {
     this.windowHeight = window.innerHeight + 'px'
   },
+  data(){
+    return { 
+       enablePiShockDocs: false,
+       enablePiShockApiDocs: false,
+       enablePiVaultApiDocs: false,
+       enablePiVaultDocs : false,
+       enableCheckout : false
+    }
+  },
   methods: {
     scrollToAnchorPoint(x) {
       const el = this.$refs[x]
       el.scrollIntoView({ behavior: 'smooth' })
     }
   },
- 
+  components: {
+    VueMarkdown,
+    Checkout
+},
   setup() {
     const affiliates = ref([]);
     const videoUrls = ref([]);
@@ -268,7 +301,8 @@ export default defineComponent({
     onBeforeMount(loadAffiliates);
     onBeforeMount(loadVideoUrls);
     return {
-      slide: ref("image1"),
+      slide: ref("0"),
+      slide2: ref("0"),
       videoUrls,
       affiliates,
       QNAs,
