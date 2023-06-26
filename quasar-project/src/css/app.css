@@ -40,6 +40,11 @@
 
 /* Navbar section ends here */
 
+br,
+.navBreaker{
+    background-color:yellow;
+    height: 10px;
+}
 /* This section it the call to action main banner section! */
 .callToAction{
     padding: 125px;
@@ -58,6 +63,58 @@
 
 /* Video Player Section */
 
+.videoADS{
+    position: center;
+    margin-right: 50%
+}
+
 /* Media section starts here */
 
 /* Media section ends here */
+
+/* FAQ Section */
+.q-item__section,
+.cusor-pointer{
+margin-right: 50%;
+color:yellow;
+}
+.hovertext {
+    position: relative;
+    border-bottom: 1px dotted black;
+  }
+  
+  .hovertext:before {
+    content: attr(data-hover);
+    visibility: hidden;
+    opacity: 0;
+    width: 140px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 0;
+    transition: opacity 1s ease-in-out;
+  
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 110%;
+  }
+  
+  .hovertext:hover:before {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Footer section starts here */
+  .q-footer{
+    height: 150px;
+  }
+  .footerBtns{
+    color: yellow;
+    border-color: yellow;
+    position:center;
+    margin-right: 50px;
+    justify-content: space-between;
+    padding: 5px;
+  }
