@@ -1112,33 +1112,47 @@
         },
         getIP() 
         {
-        var thisVue = this
-        thisVue.step = 1
-        if (this.userInfo === null || this.userInfo === '') {
-            axios
-            .get(this.$vars.target + '/Login/GetLocation', {
-                headers: {
-                'Content-Type': 'application/json'
-                }
-            })
-            .then(function(answer) {
-                //console.log(answer.data)
-                if (answer.data.currency) {
-                thisVue.userInfo = answer.data
-                thisVue.currency = answer.data.currency.code
-                if (answer.data.currency.code !== 'CAD') {
-                    thisVue.getCurrencyData()
-                }
+            var thisVue = this
+            thisVue.step = 1
+            if (this.userInfo === null || this.userInfo === '') 
+            {
+                //remove later
+                let sameplereturn = {"ip":"104.58.3.73","time_zone":{"id":"America/Chicago","gmt_offset":-18000,"code":"CDT","is_daylight_saving":true},"currency":{"code":"USD","name":"US Dollar","plural":"US dollars","symbol":"$","symbol_native":"$"}};
+                if (sameplereturn.currency) {
+                    thisVue.userInfo = sameplereturn
+                    thisVue.currency = sameplereturn.currency.code
+                    if (sameplereturn.currency.code !== 'CAD') {
+                            thisVue.getCurrencyData()
+                    }
                 } else {
-                thisVue.userInfo = { currency: { code: 'CAD' } }
-                thisVue.currency = 'CAD'
+                    thisVue.userInfo = { currency: { code: 'CAD' } }
+                    thisVue.currency = 'CAD'
                 }
-            })
-            .catch(function(error) {
-                //console.log(error)
-                thisVue.showConversionWarning = true
-            })
-        }
+                // axios
+                // .get(this.$vars.target + '/Login/GetLocation', {
+                //     headers: {
+                //     'Content-Type': 'application/json'
+                //     }
+                // })
+                // .then(function(answer) 
+                // {
+                //     //console.log(answer.data)
+                //     if (answer.data.currency) {
+                //         thisVue.userInfo = answer.data
+                //         thisVue.currency = answer.data.currency.code
+                //         if (answer.data.currency.code !== 'CAD') {
+                //             thisVue.getCurrencyData()
+                //     }
+                //     } else {
+                //     thisVue.userInfo = { currency: { code: 'CAD' } }
+                //     thisVue.currency = 'CAD'
+                //     }
+                // })
+                // .catch(function(error) {
+                //     //console.log(error)
+                //     thisVue.showConversionWarning = true
+                // })
+            }
         }
     },
     computed: {
