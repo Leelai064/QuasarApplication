@@ -1,120 +1,144 @@
 /* Navbar Section Starts Here*/
-.navBar{
-    position: center;
-    height:75px;
+.navBar {
+  position: center;
+  height: 75px;
 }
 /* Color of the tabs are all matching the co-exisiting layout */
-.qtab__{
-    height: 75px;
+.qtab__ {
+  height: 75px;
 }
-.q-tab__indicator{
-    height: 0px;
+.q-tab__indicator {
+  height: 0px;
 }
-.q-menu{
-    border-radius: 0px;
+.q-menu {
+  border-radius: 0px;
 }
 .q-tab__label,
-.q-btn-dropdown
-{
-    font-size: 25px;
+.q-btn-dropdown {
+  font-size: 25px;
 }
 .shop,
 .setup,
-.support{
-    color:yellow;
-   
+.support {
+  color: yellow;
 }
 .learn,
 .faq,
-.contact{
-    color:#389bff;
+.contact {
+  color: #389bff;
 }
-.q-item__section{
-    color:#389bff;
-    font-size: 20px;
-    padding: 15px;
+.q-item__section {
+  color: #389bff;
+  font-size: 20px;
+  padding: 15px;
 }
-.q-item{
-    background-color: #1d1d1d;
+.q-item {
+  background-color: #1d1d1d;
 }
 
 /* Navbar section ends here */
 
 br,
-.navBreaker{
-    background-color:yellow;
-    height: 10px;
+.navBreaker {
+  background-color: yellow;
+  height: 10px;
 }
 /* This section it the call to action main banner section! */
-.callToAction{
-    padding: 125px;
+.callToAction {
+  padding: 125px;
 }
 .shopbtn,
-.videobtn{
-    margin-right: 25px;
-    margin-bottom: 100px;
-    border-radius: 15px;
+.videobtn {
+  margin-right: 25px;
+  margin-bottom: 100px;
+  border-radius: 15px;
 }
 
-.faq-grid{
-    width:50%
-    
+.faq-grid {
+  width: 50%;
 }
 
 /* Video Player Section */
 
-.videoADS{
-    position: center;
-    margin-right: 50%
+.videoADS {
+  position: center;
+  margin-right: 50%;
 }
 
 /* Media section starts here */
-
+.socialsSection {
+  background-color: black;
+}
+.socialCard {
+  left: 150px;
+  max-width: 300px;
+  background-color: black;
+}
 /* Media section ends here */
 
-/* FAQ Section */
-.q-item__section,
-.cusor-pointer{
-margin-right: 50%;
-color:yellow;
+/* About me Section */
+.aboutMeSection {
+  background-color: black;
+  color: yellow;
+  font-size: 35px;
 }
-.hovertext {
-    position: relative;
-    border-bottom: 1px dotted black;
-  }
-  
-  .hovertext:before {
-    content: attr(data-hover);
-    visibility: hidden;
-    opacity: 0;
-    width: 140px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 5px;
-    padding: 5px 0;
-    transition: opacity 1s ease-in-out;
-  
-    position: absolute;
-    z-index: 1;
-    left: 0;
-    top: 110%;
-  }
-  
-  .hovertext:hover:before {
-    opacity: 1;
-    visibility: visible;
-  }
+.lethosLearnMore {
+  position: relative;
+  text-align: center;
+  width: 200px;
+  top: 150px;
+  left: 200px;
+}
+.aboutMeCard {
+  position: relative;
+  width: 500px;
+  left: 100px;
+}
+.aboutMeRow {
+  padding-top: 250px;
+  padding-bottom: 250px;
+}
+.aboutTitle {
+  font-size: 100px;
+  color: #389bff;
+}
+/* FAQ Section */
+.FAQ {
+  background-color: black;
+}
+.q-item__section,
+.cusor-pointer {
+  margin-right: 50%;
+  color: yellow;
+}
+.dropDown {
+  background-color: black;
+}
 
-  /* Footer section starts here */
-  .q-footer{
-    height: 150px;
-  }
-  .footerBtns{
-    color: yellow;
-    border-color: yellow;
-    position:center;
-    margin-right: 50px;
-    justify-content: space-between;
-    padding: 5px;
-  }
+.lethosBolt {
+  margin-top: 50px;
+  margin-right: 550px;
+}
+/* Footer section starts here */
+.q-footer {
+  height: 150px;
+}
+.footerBtns {
+  color: yellow;
+  border-color: yellow;
+  position: center;
+  margin-right: 50px;
+  justify-content: space-between;
+  padding: 5px;
+}
+.container{
+    color:#389bff;
+    margin-left:500px;
+    padding: 25px;
+}
+.companyTradeMark{
+    padding-top: 15px;
+    margin-left: 40px;
+    font-size: 20px;
+    font-weight: 200;
+}

@@ -10,14 +10,27 @@
 
     <!-- Footer Section -->
     <q-footer class="bg-black q-footer text-white shadow-2 justify-center" height="50px">
-      <div class="row"></div>
-        <div class="row">
-          <q-btn v-for="link in links" :key="link" class="mx-2 footerBtns " variant= "text" rounded="xl">
-            {{ link }}
-          </q-btn>
-        </div>
-        <div class="row"></div>
-        <div class=" col-4 text-center mt-5" cols="15">
+      <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-2 col-sm-1 item">
+                      <q-btn>Home</q-btn>
+                    </div>
+                    <div class="col-sm-2 col-sm-1 item">
+                      <q-btn>Privacy Policy</q-btn>
+                    
+                    </div>
+                    <div class="col-sm-2 col-sm-1 item">
+                        <q-btn>Terms and Conditions</q-btn>
+                    </div>
+                    <div class="col-sm-2 col-sm-1 item">
+                      <q-btn>Return Policy</q-btn>
+                    </div>
+                    <div class="col-sm-2 col-sm-1 item">
+                      <q-btn>Contact Us</q-btn>
+                    </div>
+                </div>
+            </div>
+        <div class=" companyTradeMark col-4 text-center mt-5" cols="15">
           {{ new Date().getFullYear() }} — <strong>PiShock Inc.</strong>
         </div>
  
