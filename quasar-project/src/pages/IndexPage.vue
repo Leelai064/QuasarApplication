@@ -182,7 +182,10 @@
 
 <script>
 import { defineComponent, ref, onBeforeMount } from 'vue'
-
+import jsonData from '../assets/affiliates.json';
+import VueMarkdown from '../components/VueMarkdown.vue'
+import Checkout from '../components/Checkout.vue'
+import axios from 'axios';
 // import { scroll } from 'quasar';
 
 // function scrollToEl(el) {
